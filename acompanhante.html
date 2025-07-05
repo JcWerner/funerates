@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Serviços para Acompanhante - Funerartes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: linear-gradient(135deg, #121214 0%, #1f1f23 100%);
+    color: #e1e1e6;
+    font-family: 'Montserrat', sans-serif;
+    padding: 30px 20px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #4fc3f7;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 10px #4fc3f7aa;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  .card {
+    background: #27272b;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 6px 15px rgba(79,195,247,0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(79,195,247,0.7);
+    border-color: #4fc3f7;
+  }
+
+  .card.selected {
+    border-color: #4fc3f7;
+    box-shadow: 0 10px 25px #4fc3f7cc;
+    transform: translateY(-8px);
+  }
+
+  .card h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0 0 15px;
+    color: #4fc3f7;
+    text-shadow: 0 0 8px #4fc3f7aa;
+  }
+
+  .card p {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #cfcfcf;
+    margin-bottom: 25px;
+  }
+
+  .price {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #9ad9ff;
+    text-align: right;
+  }
+
+  #confirmBtn {
+    margin-top: 50px;
+    background-color: #4fc3f7;
+    border: none;
+    border-radius: 25px;
+    color: #000;
+    font-weight: 700;
+    font-size: 1.3rem;
+    padding: 15px 60px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px #4fc3f7cc;
+    transition: background-color 0.3s ease;
+    align-self: center;
+  }
+
+  #confirmBtn:disabled {
+    background-color: #6a99c3;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  #confirmBtn:not(:disabled):hover {
+    background-color: #36a3f1;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      padding: 25px 20px;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 1.2rem;
+    }
+
+    #confirmBtn {
+      padding: 12px 40px;
+      font-size: 1.1rem;
+      margin-top: 30px;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Escolha o Pacote para Prestar Serviço</h1>
+  <div class="grid" id="pacotesGrid">
+    <div class="card" data-pacote="minimalista" data-url="acompanhante-minimalista.html" tabindex="0" role="button" aria-pressed="false">
+      <h2>Pacote Minimalista</h2>
+      <p>Um choro mais suave, mas com sentimento.</p>
+      <div class="price">R$ 100,00 à 150,00</div>
+    </div>
+    <div class="card" data-pacote="tristeza" data-url="acompanhante-tristeza.html" tabindex="0" role="button" aria-pressed="false">
+      <h2>Pacote Tristeza</h2>
+      <p>Um choro médio que vai demonstrar saudades.</p>
+      <div class="price">R$ 200,00 à 250,00</div>
+    </div>
+    <div class="card" data-pacote="desespero" data-url="acompanhante-desespero.html" tabindex="0" role="button" aria-pressed="false">
+      <h2>Pacote Desespero</h2>
+      <p>Um choro exagerado que vai impactar.</p>
+      <div class="price">R$ 300,00 à 350,00</div>
+    </div>
+  </div>
+
+  <button id="confirmBtn" disabled>Confirmar Escolha</button>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const confirmBtn = document.getElementById('confirmBtn');
+    let escolhaUrl = null;
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => {
+          c.classList.remove('selected');
+          c.setAttribute('aria-pressed', 'false');
+        });
+        card.classList.add('selected');
+        card.setAttribute('aria-pressed', 'true');
+        escolhaUrl = card.getAttribute('data-url');
+        confirmBtn.disabled = false;
+      });
+
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      if (escolhaUrl) {
+        window.location.href = escolhaUrl;
+      }
+    });
+  </script>
+</body>
+</html>
