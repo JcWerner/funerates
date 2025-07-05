@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro - Funerartes Luto de Aluguel</title>
+  <style>
+    body {
+      background-color: #121214;
+      color: #e1e1e6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #1f1f23;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2b2b31;
+      color: white;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4fc3f7;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #039be5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro - Funerartes</h2>
+    <form id="formCadastro">
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="tipoUsuario">Eu sou:</label>
+      <select id="tipoUsuario" required>
+        <option value="">Selecione</option>
+        <option value="contratante">Contratante</option>
+        <option value="acompanhante">Acompanhante de Luto</option>
+      </select>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("formCadastro").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const tipo = document.getElementById("tipoUsuario").value;
+
+      if (tipo === "contratante") {
+        window.location.href = "contratante.html";
+      } else if (tipo === "acompanhante") {
+        window.location.href = "acompanhante.html";
+      } else {
+        alert("Por favor, selecione o tipo de usuário.");
+      }
+    });
+  </script>
+</body>
+</html>

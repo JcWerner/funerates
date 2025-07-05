@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pacote Tristeza - Funerartes</title>
+  <style>
+    body {
+      background-color: #121214;
+      color: #e1e1e6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #4fc3f7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #1f1f23;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .nome {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .valor {
+      color: #9ad9ff;
+      margin: 8px 0;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #4fc3f7;
+      color: #000;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .mensagem {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .mensagem textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      resize: none;
+      background-color: #2c2c30;
+      color: white;
+    }
+
+    .mensagem button {
+      margin-top: 5px;
+      width: 100%;
+    }
+
+    .enviado {
+      color: #00e676;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Acompanhantes - Pacote Tristeza</h1>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const acompanhantes = [
+      { nome: "Ana Paula Ferreira", idade: 28, id: "AC001", local: "Savassi", foto: "https://randomuser.me/api/portraits/women/11.jpg" },
+      { nome: "Beatriz Lima Souza", idade: 34, id: "AC002", local: "Santa Efigênia", foto: "https://randomuser.me/api/portraits/women/23.jpg" },
+      { nome: "Carla Menezes", idade: 30, id: "AC003", local: "Funcionários", foto: "https://randomuser.me/api/portraits/women/34.jpg" },
+      { nome: "Daniela Duarte", idade: 26, id: "AC004", local: "Lagoinha", foto: "https://randomuser.me/api/portraits/women/45.jpg" },
+      { nome: "Elisa Moreira", idade: 31, id: "AC005", local: "Sagrada Família", foto: "https://randomuser.me/api/portraits/women/56.jpg" },
+      { nome: "Fernanda Lopes", idade: 29, id: "AC006", local: "Barreiro", foto: "https://randomuser.me/api/portraits/women/67.jpg" },
+      { nome: "Gabriela Martins", idade: 35, id: "AC007", local: "Centro", foto: "https://randomuser.me/api/portraits/women/78.jpg" },
+      { nome: "Helena Vasconcelos", idade: 33, id: "AC008", local: "Caiçara", foto: "https://randomuser.me/api/portraits/women/89.jpg" },
+      { nome: "Isabela Rocha", idade: 27, id: "AC009", local: "Pampulha", foto: "https://randomuser.me/api/portraits/women/12.jpg" },
+      { nome: "Juliana Carvalho", idade: 30, id: "AC010", local: "Venda Nova", foto: "https://randomuser.me/api/portraits/women/24.jpg" },
+      { nome: "Karina Silva", idade: 32, id: "AC011", local: "Santa Tereza", foto: "https://randomuser.me/api/portraits/women/36.jpg" },
+      { nome: "Larissa Batista", idade: 29, id: "AC012", local: "Padre Eustáquio", foto: "https://randomuser.me/api/portraits/women/48.jpg" },
+      { nome: "Marina Teixeira", idade: 36, id: "AC013", local: "Nova Suíça", foto: "https://randomuser.me/api/portraits/women/59.jpg" },
+      { nome: "Natália Costa", idade: 25, id: "AC014", local: "Serra", foto: "https://randomuser.me/api/portraits/women/60.jpg" },
+      { nome: "Olívia Andrade", idade: 33, id: "AC015", local: "Santa Lúcia", foto: "https://randomuser.me/api/portraits/women/61.jpg" },
+      { nome: "Patrícia Vieira", idade: 28, id: "AC016", local: "Grajaú", foto: "https://randomuser.me/api/portraits/women/62.jpg" },
+      { nome: "Renata Campos", idade: 31, id: "AC017", local: "Buritis", foto: "https://randomuser.me/api/portraits/women/63.jpg" },
+      { nome: "Sabrina Torres", idade: 29, id: "AC018", local: "Floresta", foto: "https://randomuser.me/api/portraits/women/64.jpg" },
+      { nome: "Tatiane Dias", idade: 27, id: "AC019", local: "Anchieta", foto: "https://randomuser.me/api/portraits/women/65.jpg" },
+      { nome: "Úrsula Mendes", idade: 34, id: "AC020", local: "São Lucas", foto: "https://randomuser.me/api/portraits/women/66.jpg" },
+      { nome: "Vanessa Ribeiro", idade: 32, id: "AC021", local: "Gameleira", foto: "https://randomuser.me/api/portraits/women/67.jpg" },
+      { nome: "Wanda Souza", idade: 30, id: "AC022", local: "Cidade Nova", foto: "https://randomuser.me/api/portraits/women/68.jpg" },
+      { nome: "Xênia Lopes", idade: 29, id: "AC023", local: "Belvedere", foto: "https://randomuser.me/api/portraits/women/69.jpg" },
+      { nome: "Yasmin Azevedo", idade: 26, id: "AC024", local: "Alto Vera Cruz", foto: "https://randomuser.me/api/portraits/women/70.jpg" },
+      { nome: "Zuleica Pinheiro", idade: 35, id: "AC025", local: "Nova Gameleira", foto: "https://randomuser.me/api/portraits/women/71.jpg" }
+    ];
+
+    const grid = document.getElementById('grid');
+
+    acompanhantes.forEach(pessoa => {
+      const valor = Math.floor(Math.random() * 51) + 200;
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${pessoa.foto}" alt="Foto de ${pessoa.nome}">
+        <div class="nome">${pessoa.nome}</div>
+        <div class="info">ID: ${pessoa.id} | ${pessoa.idade} anos</div>
+        <div class="info">Região: ${pessoa.local}</div>
+        <div class="valor">R$ ${valor},00</div>
+        <button onclick="mostrarMensagem(this)">Enviar Mensagem</button>
+        <div class="mensagem">
+          <textarea rows="3" placeholder="Digite sua mensagem..."></textarea>
+          <button onclick="enviarMensagem(this)">Enviar</button>
+          <div class="enviado" style="display:none;">Mensagem enviada!</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    function mostrarMensagem(botao) {
+      const container = botao.nextElementSibling;
+      container.style.display = 'block';
+    }
+
+    function enviarMensagem(botao) {
+      const container = botao.parentElement;
+      const textarea = container.querySelector('textarea');
+      const aviso = container.querySelector('.enviado');
+      if (textarea.value.trim() !== "") {
+        aviso.style.display = 'block';
+        textarea.disabled = true;
+        botao.disabled = true;
+        botao.innerText = "Enviado";
+      } else {
+        alert("Escreva uma mensagem antes de enviar.");
+      }
+    }
+  </script>
+</body>
+</html>

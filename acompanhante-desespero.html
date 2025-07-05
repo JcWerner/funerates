@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contratantes - Pacote Desespero</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    body {
+      background: linear-gradient(135deg, #121214 0%, #1f1f23 100%);
+      color: #e1e1e6;
+      font-family: 'Montserrat', sans-serif;
+      padding: 30px 20px;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 2.4rem;
+      color: #4fc3f7;
+      margin-bottom: 40px;
+      text-align: center;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 10px #4fc3f7aa;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .card {
+      background: #27272b;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 15px rgba(79, 195, 247, 0.3);
+      text-align: center;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(79, 195, 247, 0.6);
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid #4fc3f7;
+      box-shadow: 0 0 8px #4fc3f7aa;
+      align-self: center;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin: 0 0 8px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #cfcfcf;
+      margin: 0 0 15px;
+    }
+
+    button.mensagem-btn {
+      background-color: #4fc3f7;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #000;
+      transition: background-color 0.3s;
+      margin-top: auto;
+    }
+
+    button.mensagem-btn:hover {
+      background-color: #039be5;
+    }
+
+    .mensagem-area {
+      display: none;
+      margin-top: 15px;
+      text-align: left;
+      flex-direction: column;
+    }
+
+    .chat-box {
+      max-height: 150px;
+      overflow-y: auto;
+      background-color: #1b1b1f;
+      padding: 10px;
+      border-radius: 10px;
+      color: #ddd;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .chat-msg {
+      margin-bottom: 6px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .chat-msg.acompanhante {
+      background-color: #4fc3f7;
+      color: #000;
+      align-self: flex-end;
+    }
+
+    .chat-msg.contratante {
+      background-color: #555;
+      color: #eee;
+      align-self: flex-start;
+    }
+
+    .mensagem-area textarea {
+      width: 100%;
+      height: 60px;
+      border-radius: 8px;
+      border: none;
+      padding: 8px;
+      resize: none;
+      background-color: #2b2b31;
+      color: #eee;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+    }
+
+    .mensagem-area button.enviar-msg {
+      margin-top: 8px;
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      background-color: #00e676;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .mensagem-area button.enviar-msg:hover {
+      background-color: #00c853;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contratantes - Pacote Desespero</h1>
+  <div class="grid" id="contratantesGrid"></div>
+
+  <script>
+    const contratantes = [
+      { id: 1, nome: "Luiz Barreto", idade: 39, foto: "https://randomuser.me/api/portraits/men/19.jpg", regiao: "Betim" },
+      { id: 2, nome: "Tatiane Lopes", idade: 47, foto: "https://randomuser.me/api/portraits/women/19.jpg", regiao: "Santa Efigênia" },
+      { id: 3, nome: "Eduardo Mendes", idade: 51, foto: "https://randomuser.me/api/portraits/men/76.jpg", regiao: "Contagem" },
+      { id: 4, nome: "Juliana Martins", idade: 35, foto: "https://randomuser.me/api/portraits/women/24.jpg", regiao: "Lagoinha" },
+      { id: 5, nome: "Rafael Borges", idade: 44, foto: "https://randomuser.me/api/portraits/men/55.jpg", regiao: "Palmares" }
+    ];
+
+    const mensagens = {
+      1: [{ from: 'contratante', text: "Por favor, preciso de alguém que chore muito. Minha tia era muito querida. O velório será em Betim. É urgente!" }],
+      2: [{ from: 'contratante', text: "Boa noite... a dor é imensa. Preciso de uma presença forte que possa expressar todo esse desespero por mim na Santa Efigênia." }],
+      3: [{ from: 'contratante', text: "Não sei como lidar. Será em Contagem. Quero alguém que chore alto, que sinta, que se jogue se for preciso..." }],
+      4: [{ from: 'contratante', text: "Estou organizando algo intenso em Lagoinha. É muito sofrimento, quero que todos sintam o impacto." }],
+      5: [{ from: 'contratante', text: "Bom dia. Preciso de alguém que possa expressar com gritos, soluços e desespero profundo. Vai ser em Palmares." }]
+    };
+
+    const grid = document.getElementById('contratantesGrid');
+
+    contratantes.forEach(pessoa => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <img src="${pessoa.foto}" alt="Foto de ${pessoa.nome}" />
+        <h2>${pessoa.nome}</h2>
+        <p>Idade: ${pessoa.idade} anos</p>
+        <p>Região: ${pessoa.regiao}</p>
+        <button class="mensagem-btn">Abrir Chat</button>
+        <div class="mensagem-area">
+          <div class="chat-box"></div>
+          <textarea placeholder="Digite sua mensagem..."></textarea>
+          <button class="enviar-msg">Enviar</button>
+        </div>
+      `;
+
+      grid.appendChild(card);
+
+      const btnChat = card.querySelector('.mensagem-btn');
+      const areaMsg = card.querySelector('.mensagem-area');
+      const chatBox = card.querySelector('.chat-box');
+      const textarea = card.querySelector('textarea');
+      const btnEnviar = card.querySelector('.enviar-msg');
+
+      btnChat.addEventListener('click', () => {
+        areaMsg.style.display = areaMsg.style.display === 'flex' ? 'none' : 'flex';
+        atualizarChat(pessoa.id, chatBox);
+      });
+
+      btnEnviar.addEventListener('click', () => {
+        const texto = textarea.value.trim();
+        if (!texto) {
+          alert('Digite uma mensagem antes de enviar!');
+          return;
+        }
+
+        mensagens[pessoa.id].push({ from: 'acompanhante', text: texto });
+        textarea.value = '';
+        atualizarChat(pessoa.id, chatBox);
+
+        setTimeout(() => {
+          mensagens[pessoa.id].push({ from: 'contratante', text: "Seu retorno foi muito importante. Me sinto acolhido." });
+          atualizarChat(pessoa.id, chatBox);
+        }, 1500);
+      });
+    });
+
+    function atualizarChat(id, chatBox) {
+      chatBox.innerHTML = '';
+      mensagens[id].forEach(msg => {
+        const div = document.createElement('div');
+        div.className = 'chat-msg ' + msg.from;
+        div.textContent = msg.text;
+        chatBox.appendChild(div);
+      });
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Escolha um Pacote - Funerartes</title>
+  <style>
+    body {
+      background-color: #121214;
+      color: #e1e1e6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    .pacotes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .card {
+      background-color: #1f1f23;
+      border-radius: 12px;
+      padding: 25px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #4fc3f7;
+    }
+
+    .preco {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #9ad9ff;
+    }
+
+    .card p {
+      margin-bottom: 20px;
+    }
+
+    .card a {
+      display: inline-block;
+      background-color: #4fc3f7;
+      color: #000;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .card a:hover {
+      background-color: #039be5;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Escolha um Pacote de Luto</h1>
+
+  <div class="pacotes">
+
+    <div class="card">
+      <h2>Pacote Minimalista</h2>
+      <p>Um choro mais suave, mas com sentimento e respeito.</p>
+      <div class="preco">R$ 100,00 à R$ 150,00</div>
+      <a href="minimalista.html">Selecionar</a>
+    </div>
+
+    <div class="card">
+      <h2>Pacote Tristeza</h2>
+      <p>Um choro médio, com demonstrações sinceras de saudade.</p>
+      <div class="preco">R$ 200,00 à R$ 250,00</div>
+      <a href="pacote-tristeza.html">Selecionar</a>
+    </div>
+
+    <div class="card">
+      <h2>Pacote Desespero</h2>
+      <p>Um choro exagerado e impactante, digno de novela mexicana.</p>
+      <div class="preco">R$ 300,00 à R$ 350,00</div>
+      <a href="pacote-desespero.html">Selecionar</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
